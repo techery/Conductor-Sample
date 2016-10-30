@@ -3,6 +3,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://clojars.org/repo/" }
 }
 
 buildscript {
@@ -74,4 +75,7 @@ dependencies {
     compile 'com.bluelinelabs:conductor-support:2.0.3'
     compile 'com.bluelinelabs:conductor-rxlifecycle:2.0.3'
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
+
+    compile 'frankiesardo:icepick:3.2.0'
+    provided 'frankiesardo:icepick-processor:3.2.0'
 }
