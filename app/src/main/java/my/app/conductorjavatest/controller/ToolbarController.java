@@ -24,6 +24,6 @@ public class ToolbarController extends BaseController<ToolbarView, ToolbarPresen
 
    @Optional
    @OnClick(R.id.mapButton) void onMapClicked() {
-      ((LandingController) getParentController()).navigateToLocations();
+      ((LandingController) getParentController()).navigateToMap();
    }
 }
