@@ -14,26 +14,27 @@ import my.app.conductorjavatest.controller.LandingController;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.container) ViewGroup container;
+   @BindView(R.id.container) ViewGroup container;
 
-    private Router router;
+   private Router router;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
 
-        router = Conductor.attachRouter(this, container, savedInstanceState);
-        if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(new LandingController()));
-        }
-    }
+      setContentView(R.layout.activity_main);
+      ButterKnife.bind(this);
 
-    @Override
-    public void onBackPressed() {
-        if (!router.handleBack()) {
-            super.onBackPressed();
-        }
-    }
+      router = Conductor.attachRouter(this, container, savedInstanceState);
+      if (!router.hasRootController()) {
+         router.setRoot(RouterTransaction.with(new LandingController()));
+      }
+   }
+
+   @Override
+   public void onBackPressed() {
+      if (!router.handleBack()) {
+         super.onBackPressed();
+      }
+   }
 }
