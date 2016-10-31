@@ -71,9 +71,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    compile 'com.bluelinelabs:conductor:2.0.3'
-    compile 'com.bluelinelabs:conductor-support:2.0.3'
-    compile 'com.bluelinelabs:conductor-rxlifecycle:2.0.3'
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
 
     compile 'frankiesardo:icepick:3.2.0'
