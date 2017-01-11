@@ -27,6 +27,9 @@ public class LandingController extends BaseController<LandingView, LandingPresen
    @Override
    protected void onViewBound(@NonNull View view) {
       super.onViewBound(view);
+
+      if (isRestoring) return;
+
       getChildRouter(toolbarContainer, "toolbar").setRoot(RouterTransaction.with(new ToolbarController()));
       getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MerchantsMasterDetailController()));
    }

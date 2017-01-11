@@ -32,6 +32,9 @@ public class MerchantsMasterDetailController
    @Override
    protected void onViewBound(@NonNull View view) {
       super.onViewBound(view);
+
+      if (isRestoring) return;
+
       getChildRouter(masterContainer, "merchants_master").setRoot(RouterTransaction.with(new MerchantsListController()));
       if (detailContainer != null) {
          getChildRouter(detailContainer, "merchants_detail").setRoot(RouterTransaction.with(new MapController()));
@@ -40,13 +43,14 @@ public class MerchantsMasterDetailController
 
    @Override
    public void navigateToDetails() {
-      if (detailContainer != null) {
-         getChildRouter(detailContainer, "merchants_detail")
-               .pushController(RouterTransaction.with(new MerchantDetailController()));
-      } else {
+      if (detailContainer == null) {
          getRouter().pushController(RouterTransaction.with(new MerchantDetailController())
                .pushChangeHandler(new HorizontalChangeHandler())
                .popChangeHandler(new HorizontalChangeHandler()));
+
+      } else {
+         getChildRouter(detailContainer, "merchants_detail")
+               .pushController(RouterTransaction.with(new MerchantDetailController()));
       }
    }
 }

@@ -14,11 +14,16 @@ import com.hannesdorfmann.mosby.mvp.conductor.MvpController;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import icepick.Icepick;
+import icepick.State;
 import my.app.conductorjavatest.Layout;
 
 public abstract class BaseController<V extends MvpView, P extends MvpPresenter<V>> extends MvpController<V, P> {
 
+   @State boolean stateStub = false;
+
    private Unbinder unbinder;
+
+   protected boolean isRestoring = false;
 
    @NonNull
    @Override
@@ -45,15 +50,16 @@ public abstract class BaseController<V extends MvpView, P extends MvpPresenter<V
    }
 
    @Override
-   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-      super.onRestoreInstanceState(savedInstanceState);
-      Icepick.restoreInstanceState(this, savedInstanceState);
+   protected void onSaveViewState(@NonNull View view, @NonNull Bundle outState) {
+      super.onSaveViewState(view, outState);
+      Icepick.saveInstanceState(this, outState);
    }
 
    @Override
-   protected void onSaveInstanceState(@NonNull Bundle outState) {
-      super.onSaveInstanceState(outState);
-      Icepick.saveInstanceState(this, outState);
+   protected void onRestoreViewState(@NonNull View view, @NonNull Bundle savedViewState) {
+      super.onRestoreViewState(view, savedViewState);
+      isRestoring = true;
+      Icepick.restoreInstanceState(this, savedViewState);
    }
 
    /**
