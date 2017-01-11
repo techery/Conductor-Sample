@@ -13,4 +13,17 @@
       android:layout_gravity="center"
       android:text="This is map"
       />
+
+   <android.support.v7.widget.AppCompatButton
+      android:id="@+id/stateCounterIncrementButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Increment state counter"
+      />
+
+   <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/stateCounterTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      />
 </LinearLayout>

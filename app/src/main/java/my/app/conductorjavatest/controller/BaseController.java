@@ -25,7 +25,7 @@ public abstract class BaseController<V extends MvpView, P extends MvpPresenter<V
    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
       Layout layout = getLayoutFromAnnotation(this.getClass());
       if (layout == null) {
-         throw new IllegalArgumentException("ConfigurableFragment should have Layout annotation");
+         throw new IllegalArgumentException("Controller should have Layout annotation");
       }
 
       View view = inflater.inflate(layout.value(), container, false);
