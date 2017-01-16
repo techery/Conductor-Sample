@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 
 import butterknife.BindView;
@@ -15,37 +16,50 @@ import my.app.conductorjavatest.view.LandingView;
 @Layout(R.layout.landing)
 public class LandingController extends BaseController<LandingView, LandingPresenter> implements LandingView {
 
-   @BindView(R.id.toolbarContainer) ViewGroup toolbarContainer;
-   @BindView(R.id.contentContainer) ViewGroup contentContainer;
+    @BindView(R.id.toolbarContainer)
+    ViewGroup toolbarContainer;
+    @BindView(R.id.contentContainer)
+    ViewGroup contentContainer;
 
-   @NonNull
-   @Override
-   public LandingPresenter createPresenter() {
-      return new LandingPresenter();
-   }
+    private Router toolbarChildRouter;
+    private Router contentChildRouter;
 
-   @Override
-   protected void onViewBound(@NonNull View view) {
-      super.onViewBound(view);
+    @NonNull
+    @Override
+    public LandingPresenter createPresenter() {
+        return new LandingPresenter();
+    }
 
-      if (isRestoring) return;
+    @Override
+    protected void onViewBound(@NonNull View view) {
+        super.onViewBound(view);
+        toolbarChildRouter = getChildRouter(toolbarContainer, "toolbar");
+        contentChildRouter = getChildRouter(contentContainer, "content");
 
-      getChildRouter(toolbarContainer, "toolbar").setRoot(RouterTransaction.with(new ToolbarController()));
-      getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MerchantsMasterDetailController()));
-   }
+        if (!toolbarChildRouter.hasRootController()) {
+            toolbarChildRouter.setRoot(RouterTransaction.with(new ToolbarController()));
+        }
 
-   @Override
-   public void navigateToLocations() {
-      getChildRouter(contentContainer, "content").pushController(RouterTransaction.with(new LocationsController()));
-   }
+        if (!contentChildRouter.hasRootController()) {
+            MerchantsMasterDetailController controller = new MerchantsMasterDetailController();
+            controller.setRetainViewMode(RetainViewMode.RETAIN_DETACH);
 
-   @Override
-   public void navigateToMerchants() {
-      getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MerchantsMasterDetailController()));
-   }
+            contentChildRouter.setRoot(RouterTransaction.with(controller));
+        }
+    }
 
-   @Override
-   public void navigateToMap() {
-      getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MapController()));
-   }
+    @Override
+    public void navigateToLocations() {
+        getChildRouter(contentContainer, "content").pushController(RouterTransaction.with(new LocationsController()));
+    }
+
+    @Override
+    public void navigateToMerchants() {
+        getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MerchantsMasterDetailController()));
+    }
+
+    @Override
+    public void navigateToMap() {
+        getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MapController()));
+    }
 }

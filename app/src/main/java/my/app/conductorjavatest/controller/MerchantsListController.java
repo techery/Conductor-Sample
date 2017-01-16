@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
