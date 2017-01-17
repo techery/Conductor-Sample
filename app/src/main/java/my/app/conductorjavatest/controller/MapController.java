@@ -16,7 +16,7 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(MapPresenter.class)
 @Layout(R.layout.map)
-public class MapController extends BaseController implements MapView {
+public class MapController extends BaseController<MapPresenter> implements MapView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 

@@ -15,7 +15,7 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(LocationsPresenter.class)
 @Layout(R.layout.locations)
-public class LocationsController extends BaseController implements LocationsView {
+public class LocationsController extends BaseController<LocationsPresenter> implements LocationsView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 
@@ -28,7 +28,6 @@ public class LocationsController extends BaseController implements LocationsView
 
    @Override
    protected void onViewBound(@NonNull View view) {
-      super.onViewBound(view);
       showCurrentState();
    }
 

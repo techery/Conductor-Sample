@@ -7,15 +7,18 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
+import my.app.conductorjavatest.App;
 import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
+import my.app.conductorjavatest.di.ControllerComponent;
 import my.app.conductorjavatest.presenter.MerchantDetailPresenter;
 import my.app.conductorjavatest.view.MerchantDetailView;
 import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(MerchantDetailPresenter.class)
 @Layout(R.layout.merchant_detail)
-public class MerchantDetailController extends BaseController implements MerchantDetailView {
+public class MerchantDetailController extends InjectablePresenterController<MerchantDetailPresenter, ControllerComponent>
+        implements MerchantDetailView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 
@@ -34,5 +37,10 @@ public class MerchantDetailController extends BaseController implements Merchant
    @OnClick(R.id.stateCounterIncrementButton) void stateIncrementClicked() {
       stateCounter++;
       showCurrentState();
+   }
+
+   @Override
+   protected ControllerComponent component() {
+      return App.applicationComponent().plus();
    }
 }

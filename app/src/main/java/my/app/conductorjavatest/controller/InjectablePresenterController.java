@@ -4,11 +4,11 @@ import my.app.conductorjavatest.DaggerPresenterFactory;
 import nucleus.factory.PresenterFactory;
 import nucleus.presenter.Presenter;
 
-public abstract class InjectablePresenterController<P extends Presenter> extends BaseController<P> {
+public abstract class InjectablePresenterController<P extends Presenter, K> extends BaseController<P> {
     @Override
     protected PresenterFactory<P> presenterFactory() {
         return new DaggerPresenterFactory<>(super.presenterFactory(), component());
     }
 
-    protected abstract <Component> Component component();
+    protected abstract K component();
 }

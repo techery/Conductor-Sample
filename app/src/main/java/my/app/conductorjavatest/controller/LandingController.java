@@ -16,7 +16,7 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(LandingPresenter.class)
 @Layout(R.layout.landing)
-public class LandingController extends BaseController implements LandingView {
+public class LandingController extends BaseController<LandingPresenter> implements LandingView {
 
     @BindView(R.id.toolbarContainer)
     ViewGroup toolbarContainer;
@@ -28,7 +28,6 @@ public class LandingController extends BaseController implements LandingView {
 
     @Override
     protected void onViewBound(@NonNull View view) {
-        super.onViewBound(view);
         toolbarChildRouter = getChildRouter(toolbarContainer, "toolbar");
         contentChildRouter = getChildRouter(contentContainer, "content");
 

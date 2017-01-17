@@ -18,7 +18,8 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(MerchantsMasterDetailPresenter.class)
 @Layout(R.layout.merchants_master_detail)
-public class MerchantsMasterDetailController extends BaseController implements MerchantsMasterDetailView {
+public class MerchantsMasterDetailController extends BaseController<MerchantsMasterDetailPresenter>
+        implements MerchantsMasterDetailView {
 
     @BindView(R.id.masterContainer)
     ViewGroup masterContainer;

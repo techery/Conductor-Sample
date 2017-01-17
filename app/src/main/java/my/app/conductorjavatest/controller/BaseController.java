@@ -28,14 +28,15 @@ public abstract class BaseController<P extends Presenter> extends Controller
     private Unbinder unbinder;
 
     private PresenterLifecycleDelegate<P> presenterLifecycleDelegate;
+    private final LifecycleListener lifecycleListener = new LifecycleListener() {
+        @Override
+        public void preCreateView(@NonNull Controller controller) {
+            presenterLifecycleDelegate = new PresenterLifecycleDelegate<>(presenterFactory());
+        }
+    };
 
     public BaseController() {
-        addLifecycleListener(new LifecycleListener() {
-            @Override
-            public void preCreateView(@NonNull Controller controller) {
-                presenterLifecycleDelegate = new PresenterLifecycleDelegate<>(presenterFactory());
-            }
-        });
+        addLifecycleListener(lifecycleListener);
     }
 
     @NonNull
@@ -55,10 +56,11 @@ public abstract class BaseController<P extends Presenter> extends Controller
         return view;
     }
 
-    protected abstract void onViewBound(@NonNull View view);
+    protected void onViewBound(@NonNull View view) {
+    }
 
     @Override
-    protected void onDestroyView(View view) {
+    protected void onDestroyView(@NonNull View view) {
         presenterLifecycleDelegate.onDropView();
         super.onDestroyView(view);
 
@@ -68,6 +70,7 @@ public abstract class BaseController<P extends Presenter> extends Controller
 
     @Override
     protected void onDestroy() {
+        removeLifecycleListener(lifecycleListener);
         presenterLifecycleDelegate.onDestroy(isBeingDestroyed());
         super.onDestroy();
     }
@@ -94,6 +97,7 @@ public abstract class BaseController<P extends Presenter> extends Controller
         presenterLifecycleDelegate.setPresenterFactory(presenterFactory);
     }
 
+    @Nullable
     @Override
     public P getPresenter() {
         return presenterLifecycleDelegate.getPresenter();

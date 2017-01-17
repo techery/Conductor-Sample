@@ -10,7 +10,7 @@ import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(ToolbarPresenter.class)
 @Layout(R.layout.toolbar)
-public class ToolbarController extends BaseController implements ToolbarView {
+public class ToolbarController extends BaseController<ToolbarPresenter> implements ToolbarView {
 
     @OnClick(R.id.locationsButton)
     void onLocationsClicked() {

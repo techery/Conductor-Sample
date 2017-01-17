@@ -3,6 +3,7 @@ package my.app.conductorjavatest;
 import android.app.Application;
 
 import my.app.conductorjavatest.di.ApplicationComponent;
+import my.app.conductorjavatest.di.ApplicationModule;
 import my.app.conductorjavatest.di.DaggerApplicationComponent;
 import timber.log.Timber;
 
@@ -17,7 +18,9 @@ public class App extends Application {
             Timber.plant(new Timber.DebugTree());
         }
 
-        applicationComponent = DaggerApplicationComponent.create();
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
     public static ApplicationComponent applicationComponent() {
