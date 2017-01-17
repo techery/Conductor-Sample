@@ -1,8 +1,7 @@
 package my.app.conductorjavatest.presenter;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-
 import my.app.conductorjavatest.view.MapView;
+import nucleus.presenter.Presenter;
 
-public class MapPresenter extends MvpBasePresenter<MapView> {
+public class MapPresenter extends Presenter<MapView> {
 }

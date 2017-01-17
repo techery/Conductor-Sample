@@ -14,11 +14,11 @@ import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
 import my.app.conductorjavatest.presenter.MerchantsMasterDetailPresenter;
 import my.app.conductorjavatest.view.MerchantsMasterDetailView;
+import nucleus.factory.RequiresPresenter;
 
+@RequiresPresenter(MerchantsMasterDetailPresenter.class)
 @Layout(R.layout.merchants_master_detail)
-public class MerchantsMasterDetailController
-        extends BaseController<MerchantsMasterDetailView, MerchantsMasterDetailPresenter>
-        implements MerchantsMasterDetailView {
+public class MerchantsMasterDetailController extends BaseController implements MerchantsMasterDetailView {
 
     @BindView(R.id.masterContainer)
     ViewGroup masterContainer;
@@ -27,12 +27,6 @@ public class MerchantsMasterDetailController
     ViewGroup detailContainer;
 
     private Router merchantDetailRouter;
-
-    @NonNull
-    @Override
-    public MerchantsMasterDetailPresenter createPresenter() {
-        return new MerchantsMasterDetailPresenter();
-    }
 
     @Override
     protected void onViewBound(@NonNull View view) {
@@ -47,8 +41,7 @@ public class MerchantsMasterDetailController
             merchantDetailRouter = getChildRouter(detailContainer, "merchants_detail");
 
             if (!merchantDetailRouter.hasRootController()) {
-                getChildRouter(detailContainer, "merchants_detail")
-                        .setRoot(RouterTransaction.with(new MapController()));
+                merchantDetailRouter.setRoot(RouterTransaction.with(new MapController()));
             }
         }
     }
@@ -62,8 +55,7 @@ public class MerchantsMasterDetailController
                             .popChangeHandler(new HorizontalChangeHandler()));
 
         } else {
-            getChildRouter(detailContainer, "merchants_detail")
-                    .pushController(RouterTransaction.with(new MerchantDetailController()));
+            merchantDetailRouter.pushController(RouterTransaction.with(new MerchantDetailController()));
         }
     }
 }

@@ -1,8 +1,7 @@
 package my.app.conductorjavatest.presenter;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-
 import my.app.conductorjavatest.view.MerchantsListView;
+import nucleus.presenter.Presenter;
 
-public class MerchantsListPresenter extends MvpBasePresenter<MerchantsListView> {
+public class MerchantsListPresenter extends Presenter<MerchantsListView> {
 }

@@ -12,9 +12,11 @@ import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
 import my.app.conductorjavatest.presenter.LandingPresenter;
 import my.app.conductorjavatest.view.LandingView;
+import nucleus.factory.RequiresPresenter;
 
+@RequiresPresenter(LandingPresenter.class)
 @Layout(R.layout.landing)
-public class LandingController extends BaseController<LandingView, LandingPresenter> implements LandingView {
+public class LandingController extends BaseController implements LandingView {
 
     @BindView(R.id.toolbarContainer)
     ViewGroup toolbarContainer;
@@ -23,12 +25,6 @@ public class LandingController extends BaseController<LandingView, LandingPresen
 
     private Router toolbarChildRouter;
     private Router contentChildRouter;
-
-    @NonNull
-    @Override
-    public LandingPresenter createPresenter() {
-        return new LandingPresenter();
-    }
 
     @Override
     protected void onViewBound(@NonNull View view) {

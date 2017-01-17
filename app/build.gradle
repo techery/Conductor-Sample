@@ -58,6 +58,10 @@ def supportLibVersion = "24.2.1"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    // di
+    compile "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
@@ -70,6 +74,8 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    compile 'info.android15.nucleus:nucleus:4.0.0'
 
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
     compile 'com.bluelinelabs:conductor:2.0.6-SNAPSHOT'

@@ -1,8 +1,6 @@
 package my.app.conductorjavatest.view;
 
-import com.hannesdorfmann.mosby.mvp.MvpView;
-
-public interface MerchantsMasterDetailView extends MvpView {
+public interface MerchantsMasterDetailView {
 
    void navigateToDetails();
 }

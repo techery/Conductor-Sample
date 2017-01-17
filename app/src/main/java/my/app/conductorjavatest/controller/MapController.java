@@ -12,19 +12,15 @@ import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
 import my.app.conductorjavatest.presenter.MapPresenter;
 import my.app.conductorjavatest.view.MapView;
+import nucleus.factory.RequiresPresenter;
 
+@RequiresPresenter(MapPresenter.class)
 @Layout(R.layout.map)
-public class MapController extends BaseController<MapView, MapPresenter> implements MapView {
+public class MapController extends BaseController implements MapView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 
    @State int stateCounter = 0;
-
-   @NonNull
-   @Override
-   public MapPresenter createPresenter() {
-      return new MapPresenter();
-   }
 
    @Override
    protected void onViewBound(@NonNull View view) {

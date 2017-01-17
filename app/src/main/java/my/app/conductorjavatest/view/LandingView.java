@@ -1,9 +1,6 @@
 package my.app.conductorjavatest.view;
 
-
-import com.hannesdorfmann.mosby.mvp.MvpView;
-
-public interface LandingView extends MvpView {
+public interface LandingView {
 
    void navigateToLocations();
 

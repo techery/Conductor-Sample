@@ -1,8 +1,7 @@
 package my.app.conductorjavatest.presenter;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-
 import my.app.conductorjavatest.view.LocationsView;
+import nucleus.presenter.Presenter;
 
-public class LocationsPresenter extends MvpBasePresenter<LocationsView> {
+public class LocationsPresenter extends Presenter<LocationsView> {
 }

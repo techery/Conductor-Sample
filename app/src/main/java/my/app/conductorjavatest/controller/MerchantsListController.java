@@ -14,20 +14,15 @@ import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
 import my.app.conductorjavatest.presenter.MerchantsListPresenter;
 import my.app.conductorjavatest.view.MerchantsListView;
+import nucleus.factory.RequiresPresenter;
 
+@RequiresPresenter(MerchantsListPresenter.class)
 @Layout(R.layout.merchants_list)
-public class MerchantsListController extends BaseController<MerchantsListView, MerchantsListPresenter>
-      implements MerchantsListView {
+public class MerchantsListController extends BaseController implements MerchantsListView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 
    @State int stateCounter = 0;
-
-   @NonNull
-   @Override
-   public MerchantsListPresenter createPresenter() {
-      return new MerchantsListPresenter();
-   }
 
    @OnClick(R.id.openDetails) void openDetailsClicked() {
       ((MerchantsMasterDetailController) getParentController()).navigateToDetails();

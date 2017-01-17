@@ -11,19 +11,15 @@ import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
 import my.app.conductorjavatest.presenter.LocationsPresenter;
 import my.app.conductorjavatest.view.LocationsView;
+import nucleus.factory.RequiresPresenter;
 
+@RequiresPresenter(LocationsPresenter.class)
 @Layout(R.layout.locations)
-public class LocationsController extends BaseController<LocationsView, LocationsPresenter> implements LocationsView {
+public class LocationsController extends BaseController implements LocationsView {
 
    @BindView(R.id.stateCounterTextView) AppCompatTextView stateCounterTextView;
 
    @State int stateCounter = 0;
-
-   @NonNull
-   @Override
-   public LocationsPresenter createPresenter() {
-      return new LocationsPresenter();
-   }
 
    @OnClick(R.id.merchantsButton)
    void onLocationsClicked() {
