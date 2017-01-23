@@ -3,14 +3,14 @@ package my.app.conductorjavatest.service;
 import android.content.Context;
 import android.widget.Toast;
 
-public interface DtlInteractor {
+public interface Interactor {
     //stub
     void perform();
 
-    class DtlInteractorImpl implements DtlInteractor {
+    class InteractorImpl implements Interactor {
         private Context context;
 
-        public DtlInteractorImpl(Context context) {
+        public InteractorImpl(Context context) {
             this.context = context;
         }
 

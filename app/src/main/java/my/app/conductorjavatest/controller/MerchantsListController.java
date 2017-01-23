@@ -7,6 +7,7 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
+import io.dwak.freight.annotation.ControllerBuilder;
 import my.app.conductorjavatest.App;
 import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
@@ -15,6 +16,7 @@ import my.app.conductorjavatest.presenter.MerchantsListPresenter;
 import my.app.conductorjavatest.view.MerchantsListView;
 import nucleus.factory.RequiresPresenter;
 
+@ControllerBuilder()
 @RequiresPresenter(MerchantsListPresenter.class)
 @Layout(R.layout.merchants_list)
 public class MerchantsListController extends InjectablePresenterController<MerchantsListPresenter, ControllerComponent>
@@ -28,7 +30,7 @@ public class MerchantsListController extends InjectablePresenterController<Merch
 
     @OnClick(R.id.openDetails)
     void openDetailsClicked() {
-        ((MerchantsMasterDetailController) getParentController()).navigateToDetails();
+        ((MasterDetailNavigator) getParentController()).navigate();
     }
 
     @Override

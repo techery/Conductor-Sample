@@ -26,7 +26,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "my.app.conductorjavatest"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "0.1"
@@ -76,10 +76,12 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile 'info.android15.nucleus:nucleus:4.0.0'
+    apt 'io.dwak:freight-processor:0.7-SNAPSHOT'
+    compile 'io.dwak:freight:0.7-SNAPSHOT'
 
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
-    compile 'com.bluelinelabs:conductor:2.0.6-SNAPSHOT'
-    compile 'com.bluelinelabs:conductor-support:2.0.6-SNAPSHOT'
+    compile 'com.bluelinelabs:conductor:2.0.6'
+    compile 'com.bluelinelabs:conductor-support:2.0.6'
 
     compile 'frankiesardo:icepick:3.2.0'
     provided 'frankiesardo:icepick-processor:3.2.0'

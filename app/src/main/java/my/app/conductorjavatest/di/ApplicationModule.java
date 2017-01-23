@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import my.app.conductorjavatest.service.DtlInteractor;
+import my.app.conductorjavatest.service.Interactor;
 
 @Module
 public class ApplicationModule {
@@ -24,7 +24,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public DtlInteractor provideDtlInteractor(Context context) {
-        return new DtlInteractor.DtlInteractorImpl(context);
+    public Interactor provideDtlInteractor(Context context) {
+        return new Interactor.InteractorImpl(context);
     }
 }

@@ -2,13 +2,13 @@ package my.app.conductorjavatest.presenter;
 
 import javax.inject.Inject;
 
-import my.app.conductorjavatest.service.DtlInteractor;
+import my.app.conductorjavatest.service.Interactor;
 import my.app.conductorjavatest.view.MerchantDetailView;
 import nucleus.presenter.Presenter;
 
-public class MerchantDetailPresenter extends Presenter<MerchantDetailView> {
+public class DetailPresenter extends Presenter<MerchantDetailView> {
     @Inject
-    DtlInteractor interactor;
+    Interactor interactor;
 
     @Override
     protected void onTakeView(MerchantDetailView merchantsListView) {
