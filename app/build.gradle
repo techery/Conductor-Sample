@@ -80,8 +80,7 @@ dependencies {
     compile 'io.dwak:freight:0.7-SNAPSHOT'
 
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
-    compile 'com.bluelinelabs:conductor:2.0.6'
-    compile 'com.bluelinelabs:conductor-support:2.0.6'
+    compile 'com.github.fAns1k.Conductor:conductor:34cd9c08bf37d1c9f3ba38c5e68c74070cfb1c21'
 
     compile 'frankiesardo:icepick:3.2.0'
     provided 'frankiesardo:icepick-processor:3.2.0'

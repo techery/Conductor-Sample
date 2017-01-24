@@ -12,9 +12,6 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import butterknife.BindView;
 import my.app.conductorjavatest.Layout;
 import my.app.conductorjavatest.R;
@@ -48,7 +45,7 @@ public class MasterDetailController extends BaseController<MerchantsMasterDetail
         Router merchantMasterRouter = getChildRouter(masterContainer, "merchants_master");
 
         if (!merchantMasterRouter.hasRootController()) {
-            merchantMasterRouter.setRoot(RouterTransaction.with(new MerchantsListController()));
+            merchantMasterRouter.setRoot(RouterTransaction.with(new MasterListController()));
         }
 
         final boolean hasDetail = detailContainer != null;
@@ -76,32 +73,30 @@ public class MasterDetailController extends BaseController<MerchantsMasterDetail
                                           boolean isPush,
                                           @NonNull ViewGroup container,
                                           @NonNull ControllerChangeHandler handler) {
-                try {
-                    if (hasDetail) {
-                        Controller detailController = parentRouter.getControllerWithTag(DETAIL_TAG);
+                if (!isPush) return;
 
-                        if (detailController != null) {
-                            Bundle state = saveDetailStateBundle(parentRouter, DETAIL_TAG);
+                if (hasDetail) {
+                    Controller detailController = parentRouter.getControllerWithTag(DETAIL_TAG);
 
-                            parentRouter.removeChangeListener(this);
-                            parentRouter.popController(detailController);
-                            parentRouter.addChangeListener(this);
+                    if (detailController != null) {
+                        Bundle state = saveDetailStateBundle(parentRouter, DETAIL_TAG);
+                        checkState(state);
 
-                            detailRouter.setRoot(restoreRouterTransaction(state));
-                        }
-                    } else if (detailRouter != null) {
-                        if (detailRouter.getControllerWithTag(DETAIL_TAG) != null &&
-                                parentRouter.getControllerWithTag(DETAIL_TAG) == null) {
-                            Bundle state = saveDetailStateBundle(detailRouter, DETAIL_TAG);
-
-                            parentRouter.pushController(restoreRouterTransaction(state));
-                        }
+                        parentRouter.popController(detailController);
+                        detailRouter.setRoot(RouterTransaction.restore(state));
                     }
-                } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                    e.printStackTrace();
+                } else if (detailRouter != null) {
+                    if (detailRouter.getControllerWithTag(DETAIL_TAG) != null &&
+                            parentRouter.getControllerWithTag(DETAIL_TAG) == null) {
+                        Bundle state = saveDetailStateBundle(detailRouter, DETAIL_TAG);
+                        checkState(state);
+
+                        parentRouter.pushController(RouterTransaction.restore(state));
+                    }
                 }
             }
         };
+
         parentRouter.addChangeListener(listener);
     }
 
@@ -109,18 +104,6 @@ public class MasterDetailController extends BaseController<MerchantsMasterDetail
     protected void onDestroyView(@NonNull View view) {
         super.onDestroyView(view);
         parentRouter.removeChangeListener(listener);
-    }
-
-    private RouterTransaction restoreRouterTransaction(Bundle stateBundle) throws IllegalAccessException,
-            InvocationTargetException, InstantiationException {
-        Class<RouterTransaction> clazz = transactionClass();
-        Constructor constructor = getBundleConstructor(clazz.getDeclaredConstructors());
-
-        if (constructor == null) {
-            throw new IllegalStateException("No constructor with bundle parameter");
-        }
-
-        return (RouterTransaction) constructor.newInstance(stateBundle);
     }
 
     @Nullable
@@ -137,8 +120,9 @@ public class MasterDetailController extends BaseController<MerchantsMasterDetail
     @Override
     public void navigate() {
         if (detailContainer == null) {
-            getParentController().getRouter()
-                    .setRoot(RouterTransaction.with(new DetailController())
+            parentRouter
+                    .pushController(RouterTransaction.with(new DetailController())
+                            .tag(DETAIL_TAG)
                             .pushChangeHandler(new HorizontalChangeHandler())
                             .popChangeHandler(new HorizontalChangeHandler()));
 
@@ -148,25 +132,9 @@ public class MasterDetailController extends BaseController<MerchantsMasterDetail
         }
     }
 
-    private Class<RouterTransaction> transactionClass() {
-        try {
-            return (Class<RouterTransaction>) Class.forName("com.bluelinelabs.conductor.RouterTransaction");
-        } catch (Exception e) {
-            throw new RuntimeException("An exception occurred while finding class for name " + RouterTransaction.class.getSimpleName() + ". " + e.getMessage());
+    private void checkState(Bundle state) {
+        if (state == null) {
+            throw new IllegalStateException("No state bundle to restore");
         }
-    }
-
-    @Nullable
-    private static Constructor getBundleConstructor(@NonNull Constructor[] constructors) {
-        for (Constructor constructor : constructors) {
-            if (constructor.getParameterTypes().length == 1 && constructor.getParameterTypes()[0] == Bundle.class) {
-                if (!constructor.isAccessible()) {
-                    constructor.setAccessible(true);
-                }
-
-                return constructor;
-            }
-        }
-        return null;
     }
 }

@@ -19,7 +19,7 @@ import nucleus.factory.RequiresPresenter;
 @ControllerBuilder()
 @RequiresPresenter(MerchantsListPresenter.class)
 @Layout(R.layout.merchants_list)
-public class MerchantsListController extends InjectablePresenterController<MerchantsListPresenter, ControllerComponent>
+public class MasterListController extends InjectablePresenterController<MerchantsListPresenter, ControllerComponent>
         implements MerchantsListView {
 
     @BindView(R.id.stateCounterTextView)
