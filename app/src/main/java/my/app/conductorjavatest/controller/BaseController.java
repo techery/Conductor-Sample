@@ -12,8 +12,8 @@ import com.bluelinelabs.conductor.Controller;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import icepick.Icepick;
-import icepick.State;
 import my.app.conductorjavatest.Layout;
+import my.app.conductorjavatest.util.ControllerUtil;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.ReflectionPresenterFactory;
 import nucleus.presenter.Presenter;
@@ -22,8 +22,6 @@ import nucleus.view.ViewWithPresenter;
 
 public abstract class BaseController<P extends Presenter> extends Controller
         implements ViewWithPresenter<P> {
-    @State
-    boolean stateStub = false;
 
     private Unbinder unbinder;
 
@@ -42,7 +40,7 @@ public abstract class BaseController<P extends Presenter> extends Controller
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        Layout layout = getLayoutFromAnnotation(this.getClass());
+        Layout layout = ControllerUtil.findAnnotationInClass(getClass(), Layout.class);
         if (layout == null) {
             throw new IllegalArgumentException("Controller should have Layout annotation");
         }
@@ -105,23 +103,5 @@ public abstract class BaseController<P extends Presenter> extends Controller
 
     protected PresenterFactory<P> presenterFactory() {
         return ReflectionPresenterFactory.fromViewClass(getClass());
-    }
-
-    /**
-     * Recursively scans class hierarchy searching for {@link Layout} annotation defined.
-     *
-     * @param clazz class to search for annotation
-     * @return defined layout if any or <b>null</b>
-     */
-    @Nullable
-    private Layout getLayoutFromAnnotation(Class clazz) {
-        if (clazz == null || clazz.equals(Object.class)) return null;
-
-        Layout layout = (Layout) clazz.getAnnotation(Layout.class);
-        if (layout != null) {
-            return layout;
-        } else {
-            return getLayoutFromAnnotation(clazz.getSuperclass());
-        }
     }
 }

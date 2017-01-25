@@ -36,7 +36,7 @@ public class LandingController extends BaseController<LandingPresenter> implemen
         }
 
         if (!contentChildRouter.hasRootController()) {
-            MasterDetailController controller = new MasterDetailController();
+            MasterDetailImplController controller = new MasterDetailImplController();
             contentChildRouter.setRoot(RouterTransaction.with(controller));
         }
     }
@@ -48,7 +48,7 @@ public class LandingController extends BaseController<LandingPresenter> implemen
 
     @Override
     public void navigateToMerchants() {
-        getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MasterDetailController()));
+        getChildRouter(contentContainer, "content").setRoot(RouterTransaction.with(new MasterDetailImplController()));
     }
 
     @Override
